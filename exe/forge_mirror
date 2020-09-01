@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "forge_mirror"
+
+ForgeMirror::CLI.start(ARGV)
