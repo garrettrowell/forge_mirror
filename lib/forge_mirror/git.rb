@@ -2,12 +2,6 @@ require 'rugged'
 
 module ForgeMirror
   class Git
-#    # Username needs to be git to clone public repos
-#    @cred = Rugged::Credentials::SshKey.new({
-#      username: 'git',
-#      publickey: ForgeMirror.configuration.git[:public_key],
-#      privatekey: ForgeMirror.configuration.git[:private_key],})
-
     def self.clone_repo(repo_url, clone_path)
       expanded_clone_path = File.expand_path(clone_path)
 
@@ -58,8 +52,8 @@ module ForgeMirror
       # Username needs to be git to clone public repos
       @cred = Rugged::Credentials::SshKey.new({
         username: 'git',
-        publickey: ForgeMirror.configuration.git[:public_key],
-        privatekey: ForgeMirror.configuration.git[:private_key],})
+        publickey: File.expand_path(ForgeMirror.configuration.git[:public_key]),
+        privatekey: File.expand_path(ForgeMirror.configuration.git[:private_key]),})
 
       local_repo = clone_repo(repo_url_external, clone_path)
       add_remote(local_repo, 'internal', repo_url_internal)
