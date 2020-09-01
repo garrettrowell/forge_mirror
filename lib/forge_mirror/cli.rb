@@ -21,7 +21,6 @@ module ForgeMirror
       ForgeMirror.configure(options) do |config|
       end
 
-      ForgeMirror.log.info(ForgeMirror.configuration.inspect)
       puppetfile_modules = ForgeMirror::Puppetfile.parse(ForgeMirror.configuration.general[:puppetfile_path])
       forge_modules = ForgeMirror::Forge.lookup_modules(puppetfile_modules)
       ForgeMirror::Github.check_repos(forge_modules)

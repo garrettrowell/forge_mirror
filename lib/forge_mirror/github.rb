@@ -14,9 +14,6 @@ module ForgeMirror
         proxy: ForgeMirror.configuration.general[:proxy]
       )
 
-      ForgeMirror.log.debug("INTERNAL #{@internal_client.inspect}")
-      ForgeMirror.log.debug("EXTERNAL #{@external_client.inspect}")
-
       modules.each do |m|
         repo_ext = Octokit::Repository.from_url(m[1][:url])
 
