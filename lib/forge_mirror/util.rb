@@ -3,7 +3,15 @@ require 'deep_merge'
 module ForgeMirror
   class Util
     def self.read_yaml(conf_file)
-      YAML.safe_load(File.open(File.expand_path(conf_file)).read, symbolize_names: true)
+      exp_path = File.expand_path(conf_file)
+      ForgeMirror.log.debug("Attempting to read #{exp_path}")
+      begin
+        conf = YAML.safe_load(File.open(exp_path).read, symbolize_names: true)
+      rescue Errno::ENOENT
+        ForgeMirror.log.error("Couldn't read #{exp_path}")
+        exit(2)
+      end
+      conf
     end
 
     def self.symbolize_keys(hash)

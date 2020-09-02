@@ -7,20 +7,17 @@ require 'forge_mirror/logger'
 require 'forge_mirror/puppetfile'
 require 'forge_mirror/github'
 require 'forge_mirror/git'
+require 'ostruct'
 
 module ForgeMirror
   class Error < StandardError; end
 
-  class << self
-    attr_accessor :configuration
-
-    def configure(opts)
-      self.configuration ||= Configuration.new(opts)
-      yield(configuration)
-    end
-
-#    def reset
-#      self.configuration = Configuration.new
-#    end
+  def self.configuration
+    @configuration ||= OpenStruct.new
   end
+
+  def self.configure
+    yield(configuration)
+  end
+
 end
